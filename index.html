@@ -612,13 +612,17 @@
     letter-spacing: 0.03em;
   }
   .taevling-result-meta {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.55rem;
     text-align: right;
     font-size: 0.72rem;
     color: var(--text-muted);
     letter-spacing: 0.05em;
+    white-space: nowrap;
   }
   .taevling-result-meta b {
-    display: block;
+    display: inline-block;
     color: var(--gold-light);
     font-family: 'Playfair Display', serif;
     font-size: 1rem;
@@ -1650,8 +1654,8 @@
     <div class="nav-tab-group">
       <span class="nav-bracket nav-bracket-left">[</span>
       <button class="nav-tab active" onclick="showPage('leaderboard', this)">Ledartavla</button>
-      <button class="nav-tab" onclick="showPage('rounds', this)">Tävlingar</button>
-      <button class="nav-tab" onclick="showPage('calendar', this)">Kalender</button>
+      <button class="nav-tab" onclick="showPage('rounds', this)">Resultat</button>
+      <button class="nav-tab" onclick="showPage('calendar', this)">Tävlingskalender</button>
       <button class="nav-tab" onclick="showPage('prizes', this)">Priser &amp; Poäng</button>
       <button class="nav-tab" onclick="showPage('stats', this)">Statistik</button>
       <button class="nav-tab" onclick="showPage('players', this)">Spelare</button>
@@ -1843,7 +1847,7 @@
 <div class="page" id="page-rounds">
   <div class="hero" style="padding-bottom:2rem;">
     <div class="hero-badge">Resultat per tävling</div>
-    <h1 style="font-size:clamp(2rem,5vw,3.5rem);"><span>Tävlingar</span></h1>
+    <h1 style="font-size:clamp(2rem,5vw,3.5rem);"><span>Resultat</span></h1>
     <div class="hero-divider"></div>
   </div>
 
@@ -3176,10 +3180,7 @@ function renderTaevlingMobileBar() {
   if (!bar) return;
 
   const selected = rounds.find(r => r.id === _activeTaevlingId);
-  const others = rounds.filter(r => {
-    const playable = (r.results && r.results.length > 0) || r.status === 'active';
-    return playable && r.id !== _activeTaevlingId;
-  });
+  const others = rounds.filter(r => r.id !== _activeTaevlingId);
 
   let html = '';
   if (selected) {
@@ -3201,13 +3202,29 @@ function renderTaevlingMobileBar() {
   }
 
   if (others.length > 0) {
-    const options = others.map(r => {
+    // Gruppera: först spelade/pågående, sedan kommande
+    const playableOthers = others.filter(r => (r.results && r.results.length > 0) || r.status === 'active');
+    const upcomingOthers = others.filter(r => !((r.results && r.results.length > 0) || r.status === 'active'));
+
+    const makeOpt = r => {
       const isMajor = r.type === 'major';
-      return `<option value="${r.id}">${r.month} – ${r.name}${isMajor ? '  ☆' : ''}</option>`;
-    }).join('');
+      const playable = (r.results && r.results.length > 0) || r.status === 'active';
+      const star = isMajor ? '  ☆' : '';
+      const suffix = playable ? '' : '  (kommande)';
+      return `<option value="${r.id}"${playable ? '' : ' disabled'}>${r.month} – ${r.name}${star}${suffix}</option>`;
+    };
+
+    let optionsHtml = '';
+    if (playableOthers.length > 0) {
+      optionsHtml += `<optgroup label="Spelade / pågående">${playableOthers.map(makeOpt).join('')}</optgroup>`;
+    }
+    if (upcomingOthers.length > 0) {
+      optionsHtml += `<optgroup label="Kommande">${upcomingOthers.map(makeOpt).join('')}</optgroup>`;
+    }
+
     html += `<select class="taevling-mobile-select" aria-label="Välj annan tävling" onchange="if(this.value){selectTaevling(Number(this.value));this.value='';}">
       <option value="">Byt tävling…</option>
-      ${options}
+      ${optionsHtml}
     </select>`;
   }
 
