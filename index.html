@@ -2920,71 +2920,24 @@ const rounds = [
       "topPrize": 500,
       "status": "active",
       "results": [
-        {
-          "name": "Daniel Lindh",
-          "hcp": 3,
-          "score": 35
-        },
-        {
-          "name": "Victor Strand",
-          "hcp": 5,
-          "score": 38
-        },
-        {
-          "name": "Oscar Wareborn",
-          "hcp": 2,
-          "score": 33
-        },
-        {
-          "name": "Joacim Lovén",
-          "hcp": 6,
-          "score": 30
-        },
-        {
-          "name": "Petter Johansson",
-          "hcp": 6,
-          "score": 32
-        },
-        {
-          "name": "Oliver Gustavsson",
-          "hcp": 4,
-          "score": 32
-        },
-        {
-          "name": "John Falk",
-          "hcp": 1,
-          "score": 30
-        },
-        {
-          "name": "Dennis Berg",
-          "hcp": 8,
-          "score": 32
-        },
-        {
-          "name": "Joel Ström",
-          "hcp": 4,
-          "score": 29
-        },
-        {
-          "name": "Robin Lindholm",
-          "hcp": 9,
-          "score": 33
-        },
-        {
-          "name": "Marcus Göth",
-          "hcp": 21,
-          "score": 30
-        },
-        {
-          "name": "Sebastian Tiderman",
-          "hcp": 9,
-          "score": 30
-        },
-        {
-          "name": "Jacob Andersson",
-          "hcp": 19,
-          "score": 29
-        }
+        { "name": "Martin Jönsson",    "hcp": 18, "score": 39 },
+        { "name": "Victor Strand",     "hcp": 5,  "score": 38 },
+        { "name": "Jesper Williamsson","hcp": 9,  "score": 36 },
+        { "name": "Daniel Lindh",      "hcp": 3,  "score": 35 },
+        { "name": "Oscar Wareborn",    "hcp": 2,  "score": 33 },
+        { "name": "Robin Lindholm",    "hcp": 9,  "score": 33 },
+        { "name": "Oliver Gustavsson", "hcp": 4,  "score": 32 },
+        { "name": "Petter Johansson",  "hcp": 6,  "score": 32 },
+        { "name": "Dennis Berg",       "hcp": 8,  "score": 32 },
+        { "name": "David Ärleskog",    "hcp": 14, "score": 32 },
+        { "name": "John Falk",         "hcp": 1,  "score": 30 },
+        { "name": "Joacim Lovén",      "hcp": 6,  "score": 30 },
+        { "name": "Sebastian Tiderman","hcp": 9,  "score": 30 },
+        { "name": "Marcus Göth",       "hcp": 21, "score": 30 },
+        { "name": "Joel Ström",        "hcp": 4,  "score": 29 },
+        { "name": "Jens Williamsson",  "hcp": 4,  "score": 29 },
+        { "name": "Jacob Andersson",   "hcp": 19, "score": 29 },
+        { "name": "Henrik Jönsson",    "hcp": 19, "score": 28 }
       ]
     },
     {
@@ -3299,8 +3252,8 @@ function renderTaevlingResult() {
 
     const rows = sorted.map((row, i) => {
       const pos = i + 1;
-      const rankCls = pos === 1 ? 'rank-1' : pos === 2 ? 'rank-2' : pos === 3 ? 'rank-3' : pos === 4 ? 'rank-4' : pos === 5 ? 'rank-5' : 'rank-other';
-      const nameCls = pos <= 3 ? 'player-name top-3' : pos <= 5 ? 'player-name top-5' : 'player-name';
+      const rankCls = pos === 1 ? 'rank-1' : pos === 2 ? 'rank-2' : pos === 3 ? 'rank-3' : 'rank-other';
+      const nameCls = pos <= 3 ? 'player-name top-3' : 'player-name';
       const scoreVal = isMajor ? (row.netto ?? '–') : (row.score ?? '–');
       const roundPts = row[sk] != null ? (ptTable[i] ?? 0) : '–';
       const safeName = row.name.replace(/'/g, "\\'");
@@ -3479,6 +3432,11 @@ const scoreData = {
       { name: "Marcus Göth",       shc: 21, strokes: [5,7,4,4,6,6,6,6,5,  4,7,6,4,5,6,5,6,7] },
       { name: "Robin Lindholm",    shc: 9,  strokes: [4,5,6,4,7,6,4,5,4,  4,5,5,3,6,4,3,4,5] },
       { name: "Sebastian Tiderman",shc: 9,  strokes: [5,4,5,4,5,4,5,5,5,  5,5,9,3,4,5,4,5,7] },
+      { name: "David Ärleskog",    shc: 14, strokes: [5,6,5,3,7,5,4,4,4,  8,4,6,4,4,6,4,4,8] },
+      { name: "Henrik Jönsson",    shc: 19, strokes: [5,4,6,4,5,6,5,6,7,  8,8,5,4,4,6,8,6,6] },
+      { name: "Jens Williamsson",  shc: 4,  strokes: [4,4,4,3,5,7,3,4,5,  5,4,5,4,5,6,3,7,5] },
+      { name: "Jesper Williamsson",shc: 9,  strokes: [4,5,5,3,5,4,5,4,3,  5,6,6,3,4,5,5,4,5] },
+      { name: "Martin Jönsson",    shc: 18, strokes: [4,5,4,3,4,6,4,5,5,  8,4,6,4,4,7,5,5,5] },
     ]
   },
   2: { course: "Parkbanan",   scores: [] },
