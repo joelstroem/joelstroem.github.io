@@ -1195,12 +1195,43 @@ function MobileResursvy({resources,bookings,hosKund,dayBookings,resProjs,projMap
                   const projs=nonLedigProjs.filter(p=>bdaysOf(bookings,res.id,p.id,fw).length>0);
                   const ledHrs=bdaysOf(bookings,res.id,'LEDIG',fw).length*8;
                   return(
-                    <div key={iso(fw)} className="mob-week-row" style={isCurW?{background:'#fff8f8'}:{}}>
-                      <div className={'mob-week-tag'+(isCurW?' today':'')}>V{wnum(fw)}</div>
-                      <div className="mob-chips">
-                        {ledHrs>0&&<span className="mob-chip red">Ledig {ledHrs}h</span>}
-                        {projs.map(p=>{const hrs=bdaysOf(bookings,res.id,p.id,fw).length*8;const hkV=hosKund[res.id+'__'+p.id+'__'+iso(fw)];return<span key={p.id} className={'mob-chip'+(hkV?' hk':'')}>{p.id} {hrs}h</span>;})}
-                        {!ledHrs&&projs.length===0&&<span className="mob-free">Ledig</span>}
+                    <div key={iso(fw)} style={{borderTop:'1px solid #f0f2f5',background:isCurW?'#fff8f8':fi%2===0?'white':'#fafafa'}}>
+                      <div style={{display:'flex',alignItems:'center',padding:'8px 14px 2px'}}>
+                        <div className={'mob-week-tag'+(isCurW?' today':fw<todayMon?' ':'')} style={fw<todayMon?{color:'#d1d5db'}:{}}>{isCurW?'▸ ':''}V{wnum(fw)}</div>
+                        <div style={{fontSize:10,color:'#9ca3af',marginLeft:6}}>{fmt(wdays(fw)[0])} – {fmt(wdays(fw)[4])}</div>
+                      </div>
+                      <div style={{padding:'4px 14px 10px',display:'flex',flexDirection:'column',gap:5}}>
+                        {ledHrs>0&&(
+                          <div style={{display:'flex',alignItems:'center',gap:8}}>
+                            <div style={{width:3,height:'100%',minHeight:20,borderRadius:2,background:'#e63946',flexShrink:0,alignSelf:'stretch'}}/>
+                            <div>
+                              <div style={{fontSize:12,fontWeight:600,color:'#e63946'}}>Ledig / Semester</div>
+                              <div style={{fontSize:11,color:'#9ca3af'}}>{ledHrs}h</div>
+                            </div>
+                          </div>
+                        )}
+                        {projs.map(p=>{
+                          const hrs=bdaysOf(bookings,res.id,p.id,fw).length*8;
+                          const hkV=hosKund[res.id+'__'+p.id+'__'+iso(fw)];
+                          const projName=projMap[p.id]?.name||p.name||p.id;
+                          const hkDays=Array.isArray(hkV)?hkV.length:hkV?wdays(fw).filter(d=>!isDayOff(d)).length:0;
+                          const homeDays=wdays(fw).filter(d=>!isDayOff(d)).length-(Array.isArray(hkV)?hkV.length:hkV?wdays(fw).filter(d=>!isDayOff(d)).length:0);
+                          return(
+                            <div key={p.id} style={{display:'flex',alignItems:'flex-start',gap:8}}>
+                              <div style={{width:3,minHeight:20,borderRadius:2,background:hkV?'#f06820':'#6b7280',flexShrink:0,alignSelf:'stretch'}}/>
+                              <div style={{flex:1}}>
+                                <div style={{fontSize:12,fontWeight:600,color:'#1a1a2e'}}>{p.id}{projName&&projName!==p.id?' — '+projName:''}</div>
+                                <div style={{fontSize:11,color:'#6c757d',marginTop:1,display:'flex',gap:8,flexWrap:'wrap'}}>
+                                  <span>{hrs}h totalt</span>
+                                  {hkV&&hkDays>0&&<span style={{color:'#f06820',fontWeight:500}}>🏢 {hkDays} dag{hkDays>1?'ar':''} hos kund</span>}
+                                  {hkV&&homeDays>0&&<span style={{color:'#374151'}}>🏠 {homeDays} dag{homeDays>1?'ar':''} hemma</span>}
+                                  {!hkV&&<span style={{color:'#374151'}}>🏠 Hemma hela veckan</span>}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                        {!ledHrs&&projs.length===0&&<span style={{fontSize:12,color:'#adb5bd',fontStyle:'italic'}}>Ingen planering denna vecka</span>}
                       </div>
                     </div>
                   );
@@ -1246,7 +1277,21 @@ function MobileProjektvy({projects,resources,bookings,hosKund,resProjs,projMap,t
             <div style={{background:'white',borderRadius:10,padding:'12px 14px',marginBottom:10,boxShadow:'0 1px 3px rgba(0,0,0,.06)'}}>
               <div style={{fontFamily:'monospace',fontWeight:700,fontSize:15,color:'#1a1a2e'}}>{selProj.id}</div>
               <div style={{fontSize:13,color:'#6c757d',marginTop:2}}>{selProj.name||selProj.id}</div>
-              <div style={{fontSize:11,color:'#9ca3af',marginTop:2}}>PL: {plName(selProj.pl)}</div>
+              <div style={{fontSize:11,color:'#9ca3af',marginTop:4}}>PL: {plName(selProj.pl)}</div>
+              {(selProj.milestones?.fat||selProj.milestones?.sat)&&(
+                <div style={{display:'flex',gap:8,marginTop:8,flexWrap:'wrap'}}>
+                  {selProj.milestones?.fat&&<div style={{display:'flex',alignItems:'center',gap:5,background:'#eff6ff',borderRadius:6,padding:'4px 10px'}}>
+                    <div style={{width:8,height:8,borderRadius:2,background:'#3b82f6',flexShrink:0}}/>
+                    <span style={{fontSize:11,fontWeight:600,color:'#1d4ed8'}}>FAT</span>
+                    <span style={{fontSize:11,color:'#3b82f6'}}>{weekLabel(selProj.milestones.fat)}</span>
+                  </div>}
+                  {selProj.milestones?.sat&&<div style={{display:'flex',alignItems:'center',gap:5,background:'#fff1f2',borderRadius:6,padding:'4px 10px'}}>
+                    <div style={{width:8,height:8,borderRadius:2,background:'#e63946',flexShrink:0}}/>
+                    <span style={{fontSize:11,fontWeight:600,color:'#be123c'}}>SAT</span>
+                    <span style={{fontSize:11,color:'#e63946'}}>{weekLabel(selProj.milestones.sat)}</span>
+                  </div>}
+                </div>
+              )}
             </div>
             <div style={{fontSize:12,fontWeight:600,color:'#6c757d',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:8}}>
               {isCurW?'Denna vecka':'V'+wnum(wm)} · {bookedRes.length} {bookedRes.length===1?'resurs':'resurser'}
