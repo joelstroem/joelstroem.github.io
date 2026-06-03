@@ -2285,11 +2285,11 @@
     </div></div>
     </div>
 
-    <!-- Deltagarfrekvens -->
+    <!-- Deltagare -->
     <div class="stats-section">
-      <div class="section-title">Deltagarfrekvens</div>
+      <div class="section-title">Deltagare</div>
       <div class="stats-card">
-        <div class="stats-card-title">Antal spelade deltävlingar per spelare</div>
+        <div class="stats-card-title" id="stats-freq-title">Scorekort inlagda</div>
         <div id="stats-frequency"><div class="freq-bar-row">
       <span class="freq-name">Daniel Lindh</span>
       <div class="freq-bar-bg">
@@ -2828,8 +2828,13 @@ const rounds = [
       "course": "Parkbanan",
       "date": "1–26 juni",
       "topPrize": 500,
-      "status": "upcoming",
-      "results": []
+      "status": "active",
+      "results": [
+        { "name": "Victor Strand",    "hcp": 1, "score": 38 },
+        { "name": "Oliver Gustavsson","hcp": 6, "score": 38 },
+        { "name": "Daniel Lindh",     "hcp": 1, "score": 34 },
+        { "name": "John Falk",        "hcp": 3, "score": 30 }
+      ]
     },
     {
       "id": 3,
@@ -3267,6 +3272,20 @@ function showPage(id, btn) {
   if (btn) btn.classList.add('active');
   closeMobileNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Hoppa direkt till aktiv tävling vid navigering till Resultat eller Statistik
+  const activeRound = rounds.find(r => r.status === 'active')
+    || [...rounds].reverse().find(r => r.status === 'done' && r.results && r.results.length > 0);
+
+  if (id === 'rounds' && activeRound) {
+    _activeTaevlingId = activeRound.id;
+    renderTaevlingar();
+  }
+
+  if (id === 'stats' && activeRound) {
+    const sel = document.getElementById('stats-round-select');
+    if (sel) { sel.value = activeRound.id; renderStats(); }
+  }
 }
 
 function toggleMobileNav() {
@@ -3289,7 +3308,7 @@ const COURSE_PAR = {
 // Skogsbanan från scorekorten; Parkbanan TBD när scorekort kommer in.
 const COURSE_HCP_INDEX = {
   "Skogsbanan": [15,3,5,13,7,1,17,11,9,  10,4,12,14,18,8,16,2,6],
-  "Parkbanan":  null
+  "Parkbanan":  [9,15,18,1,5,13,17,7,11,  3,12,8,14,4,16,6,2,10]
 };
 
 // Scorekort-data per tävling.
@@ -3324,7 +3343,15 @@ const scoreData = {
       { name: "Zimon Karlsson",    shc: 12, strokes: [5,4,6,5,6,5,5,5,4,  4,5,7,4,4,5,3,5,5] },
     ]
   },
-  2: { course: "Parkbanan",   scores: [] },
+  2: { // Juni – Deltävling 2 – Parkbanan
+    course: "Parkbanan",
+    scores: [
+      { name: "Victor Strand",    shc: 1, strokes: [4,3,2,3,4,4,3,4,4, 5,5,4,5,4,5,4,4,4] },
+      { name: "Oliver Gustavsson",shc: 6, strokes: [4,5,4,5,4,3,3,3,4, 5,4,4,3,4,7,5,5,4] },
+      { name: "Daniel Lindh",     shc: 1, strokes: [4,4,3,7,4,3,3,4,4, 6,4,4,3,5,4,4,5,4] },
+      { name: "John Falk",        shc: 3, strokes: [4,4,6,5,5,3,3,5,4, 5,5,4,3,5,6,4,7,4] },
+    ]
+  },
   3: { course: "Skogsbanan",  scores: [] }, // Major 1
   4: { course: "Skogsbanan",  scores: [] },
   5: { course: "Parkbanan",   scores: [] },
@@ -3711,31 +3738,38 @@ function renderParSplit(scores, par) {
 
 function renderFrequency() {
   const container = document.getElementById('stats-frequency');
-  const totalRounds = rounds.filter(r => r.type === 'deltavling' && r.status === 'done').length;
-  const maxRounds = Math.max(totalRounds, 1);
+  const titleEl = document.getElementById('stats-freq-title');
+  const roundId = parseInt(document.getElementById('stats-round-select')?.value || 1);
+  const round = rounds.find(r => r.id === roundId);
+  const data = scoreData[roundId];
 
-  // Count appearances per player across all scoreData
-  const counts = {};
-  players.forEach(p => counts[p.name] = 0);
-  Object.values(scoreData).forEach(data => {
-    data.scores.forEach(s => {
-      if (counts[s.name] != null) counts[s.name]++;
-    });
-  });
+  if (titleEl && round) {
+    titleEl.textContent = `Scorekort – ${round.month} ${round.name}`;
+  }
 
-  // Sort by count desc
-  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+  const played = new Set((data?.scores || []).map(s => s.name));
+  const allNames = players.map(p => p.name);
+  const hasSC = allNames.filter(n => played.has(n));
+  const noSC  = allNames.filter(n => !played.has(n));
 
-  container.innerHTML = sorted.map(([name, count]) => {
-    const pct = count > 0 ? Math.round((count / maxRounds) * 100) : 0;
-    return `<div class="freq-bar-row">
-      <span class="freq-name">${name}</span>
-      <div class="freq-bar-bg">
-        <div class="freq-bar-fill" style="width:${pct}%;"></div>
-      </div>
-      <span class="freq-count">${count}/${maxRounds}</span>
+  const makeRow = (name, done) => `
+    <div style="display:flex;align-items:center;gap:0.6rem;padding:0.35rem 0;border-bottom:1px solid rgba(201,168,76,0.06);">
+      <span style="font-size:0.8rem;font-weight:700;width:14px;text-align:center;color:${done ? '#6dba7f' : 'var(--text-muted)'};">${done ? '✓' : '–'}</span>
+      <span style="font-size:0.84rem;color:${done ? 'var(--cream)' : 'var(--text-muted)'};">${name}</span>
     </div>`;
-  }).join('');
+
+  container.innerHTML = `
+    <div style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#6dba7f;margin-bottom:0.5rem;">
+      Inlagda — ${hasSC.length} spelare
+    </div>
+    ${hasSC.map(n => makeRow(n, true)).join('')}
+    ${noSC.length > 0 ? `
+      <div style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:1rem;margin-bottom:0.5rem;">
+        Saknas — ${noSC.length} spelare
+      </div>
+      ${noSC.map(n => makeRow(n, false)).join('')}
+    ` : '<div style="font-size:0.82rem;color:#6dba7f;margin-top:0.75rem;font-style:italic;">Alla scorekort inlagda ✓</div>'}
+  `;
 }
 
 
