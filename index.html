@@ -2826,22 +2826,29 @@ const rounds = [
       "month": "Juni",
       "name": "Deltävling 2",
       "course": "Parkbanan",
-      "date": "1–26 juni",
+      "date": "1–25 juni",
       "topPrize": 500,
       "status": "active",
       "results": [
         { "name": "Victor Strand",     "hcp": 1,  "score": 38 },
         { "name": "Oliver Gustavsson", "hcp": 6,  "score": 38 },
+        { "name": "Henrik Jönsson",    "hcp": 19, "score": 36 },
         { "name": "Dennis Berg",       "hcp": 7,  "score": 35 },
         { "name": "Robin Lindholm",    "hcp": 7,  "score": 35 },
         { "name": "Zimon Karlsson",    "hcp": 11, "score": 35 },
+        { "name": "Oliver Ekbladh",    "hcp": 14, "score": 35 },
         { "name": "Daniel Lindh",      "hcp": 1,  "score": 34 },
         { "name": "Sebastian Tiderman","hcp": 8,  "score": 34 },
+        { "name": "Martin Jönsson",    "hcp": 16, "score": 34 },
+        { "name": "Jacob Andersson",   "hcp": 17, "score": 31 },
         { "name": "John Falk",         "hcp": 3,  "score": 30 },
         { "name": "Joacim Lovén",      "hcp": 6,  "score": 30 },
         { "name": "Petter Johansson",  "hcp": 3,  "score": 29 },
+        { "name": "Oscar Wareborn",    "hcp": 2,  "score": 28 },
         { "name": "Martin Svensson",   "hcp": 13, "score": 28 },
-        { "name": "Marcus Göth",       "hcp": 19, "score": 28 }
+        { "name": "David Ärleskog",    "hcp": 13, "score": 28 },
+        { "name": "Marcus Göth",       "hcp": 19, "score": 28 },
+        { "name": "Anton Edman",       "hcp": 2,  "score": 25 }
       ]
     },
     {
@@ -3365,6 +3372,13 @@ const scoreData = {
       { name: "Joacim Lovén",       shc: 6,  strokes: [5,5,4,6,4,4,3,6,4, 5,4,5,2,6,8,4,5,5] },
       { name: "Petter Johansson",   shc: 3,  strokes: [5,4,3,6,6,4,3,5,4, 5,4,5,2,4,6,5,10,3] },
       { name: "Martin Svensson",    shc: 13, strokes: [7,4,7,5,5,4,4,6,4, 5,5,6,3,6,7,5,9,4] },
+      { name: "Henrik Jönsson",    shc: 19, strokes: [4,6,3,6,5,4,3,6,5, 6,6,7,4,4,8,4,6,4] },
+      { name: "Martin Jönsson",    shc: 16, strokes: [6,3,5,6,4,3,4,5,5, 7,4,6,3,7,5,5,7,5] },
+      { name: "Oliver Ekbladh",    shc: 14, strokes: [4,5,5,7,5,3,3,4,4, 6,5,6,4,6,5,4,6,5] },
+      { name: "Jacob Andersson",   shc: 17, strokes: [6,5,4,7,5,3,4,5,8, 7,5,5,5,6,6,4,5,5] },
+      { name: "Oscar Wareborn",    shc: 2,  strokes: [5,5,4,4,4,4,3,4,5, 5,5,5,4,4,7,5,5,4] },
+      { name: "David Ärleskog",    shc: 13, strokes: [5,4,3,8,4,5,3,7,6, 5,4,6,5,5,6,6,4,9] },
+      { name: "Anton Edman",       shc: 2,  strokes: [8,5,3,6,4,4,3,4,4, 5,5,6,5,5,5,5,6,4] },
       { name: "Marcus Göth",        shc: 19, strokes: [6,4,4,10,5,3,4,4,4, 7,6,7,4,7,8,5,5,7] },
     ]
   },
@@ -4495,16 +4509,30 @@ function recalcLeaderboard() {
       if (sb !== sa) return sb - sa;
       return (a.hcp ?? 999) - (b.hcp ?? 999);
     });
-    sorted.forEach((entry, idx) => {
-      const player = players.find(p => p.name === entry.name);
-      if (!player) return;
-      const pts = isMajor ? (MAJOR_POINTS[idx] ?? 0) : (DELTA_POINTS[idx] ?? 0);
-      player.points += pts;
-      // Major cash prizes
-      if (isMajor && MAJOR_PRIZES[idx] != null) {
-        player.cash += MAJOR_PRIZES[idx];
+    // Group tied entries (same score AND same hcp) and share points equally
+    const ptTable = isMajor ? MAJOR_POINTS : DELTA_POINTS;
+    let i = 0;
+    while (i < sorted.length) {
+      const entry = sorted[i];
+      const scoreVal = entry[sk] ?? -Infinity;
+      // Find how many share this exact score+hcp
+      let j = i;
+      while (j < sorted.length && (sorted[j][sk] ?? -Infinity) === scoreVal && (sorted[j].hcp ?? 999) === (entry.hcp ?? 999)) j++;
+      const tieCount = j - i;
+      // Sum points for positions i..j-1 and split evenly
+      let totalPts = 0;
+      for (let k = i; k < j; k++) totalPts += ptTable[k] ?? 0;
+      const sharedPts = totalPts / tieCount;
+      for (let k = i; k < j; k++) {
+        const player = players.find(p => p.name === sorted[k].name);
+        if (!player) continue;
+        player.points += sharedPts;
+        if (isMajor && MAJOR_PRIZES[k] != null) {
+          player.cash += MAJOR_PRIZES[k] / tieCount;
+        }
       }
-    });
+      i = j;
+    }
   });
 
   // Set null for players with 0 points (haven't played)
