@@ -2753,31 +2753,31 @@
 // ===================== DATA =====================
 // Ledartavla – uppdatera efter varje tävling
 const players = [
-    { "rank": 1,  "name": "Victor Strand",     "points": 900, "cash": null },
-    { "rank": 2,  "name": "Martin Jönsson",    "points": 550, "cash": null },
-    { "rank": 3,  "name": "Oliver Gustavsson", "points": 500, "cash": null },
-    { "rank": 4,  "name": "Oliver Ekbladh",    "points": 420, "cash": null },
-    { "rank": 5,  "name": "Robin Lindholm",    "points": 325, "cash": null },
-    { "rank": 6,  "name": "Daniel Lindh",      "points": 300, "cash": null },
-    { "rank": 7,  "name": "Henrik Jönsson",    "points": 300, "cash": null },
-    { "rank": 8,  "name": "Zimon Karlsson",    "points": 260, "cash": null },
-    { "rank": 9,  "name": "Jesper Williamsson","points": 250, "cash": null },
-    { "rank": 10, "name": "Simon Wermelin",    "points": 250, "cash": null },
-    { "rank": 11, "name": "Dennis Berg",       "points": 235, "cash": null },
-    { "rank": 12, "name": "Oscar Wareborn",    "points": 170, "cash": null },
-    { "rank": 13, "name": "Petter Johansson",  "points": 80,  "cash": null },
-    { "rank": 14, "name": "Sebastian Tiderman","points": 80,  "cash": null },
-    { "rank": 15, "name": "David Ärleskog",    "points": 30,  "cash": null },
-    { "rank": 16, "name": "Jens Williamsson",  "points": 30,  "cash": null },
-    { "rank": 17, "name": "Anton Edman",       "points": 20,  "cash": null },
-    { "rank": 18, "name": "Jacob Andersson",   "points": 20,  "cash": null },
-    { "rank": 19, "name": "Markus Nyberg",     "points": 10,  "cash": null },
-    { "rank": 20, "name": "John Falk",         "points": 10,  "cash": null },
-    { "rank": 21, "name": "Joacim Lovén",      "points": null,"cash": null },
-    { "rank": 22, "name": "Marcus Göth",       "points": null,"cash": null },
-    { "rank": 23, "name": "Joel Ström",        "points": null,"cash": null },
-    { "rank": 24, "name": "Martin Svensson",   "points": null,"cash": null },
-    { "rank": 25, "name": "Felix Björklind",   "points": null,"cash": null }
+    { "rank": 1,  "name": "Victor Strand",     "points": 1090, "cash": null },
+    { "rank": 2,  "name": "John Falk",         "points": 710,  "cash": 1500 },
+    { "rank": 3,  "name": "Oliver Ekbladh",    "points": 690,  "cash": null },
+    { "rank": 4,  "name": "Petter Johansson",  "points": 630,  "cash": 750  },
+    { "rank": 5,  "name": "Daniel Lindh",      "points": 610,  "cash": null },
+    { "rank": 6,  "name": "Martin Jönsson",    "points": 590,  "cash": null },
+    { "rank": 7,  "name": "Oliver Gustavsson", "points": 520,  "cash": null },
+    { "rank": 8,  "name": "Jens Williamsson",  "points": 480,  "cash": 500  },
+    { "rank": 9,  "name": "Henrik Jönsson",    "points": 460,  "cash": null },
+    { "rank": 10, "name": "Joel Ström",        "points": 400,  "cash": null },
+    { "rank": 11, "name": "Dennis Berg",       "points": 365,  "cash": null },
+    { "rank": 12, "name": "Joacim Lovén",      "points": 350,  "cash": null },
+    { "rank": 13, "name": "Robin Lindholm",    "points": 325,  "cash": null },
+    { "rank": 14, "name": "Simon Wermelin",    "points": 310,  "cash": null },
+    { "rank": 15, "name": "Zimon Karlsson",    "points": 270,  "cash": null },
+    { "rank": 16, "name": "David Ärleskog",    "points": 260,  "cash": null },
+    { "rank": 17, "name": "Jesper Williamsson","points": 250,  "cash": null },
+    { "rank": 18, "name": "Anton Edman",       "points": 220,  "cash": null },
+    { "rank": 19, "name": "Sebastian Tiderman","points": 180,  "cash": null },
+    { "rank": 20, "name": "Oscar Wareborn",    "points": 170,  "cash": null },
+    { "rank": 21, "name": "Marcus Göth",       "points": 80,   "cash": null },
+    { "rank": 22, "name": "Jacob Andersson",   "points": 20,   "cash": null },
+    { "rank": 23, "name": "Markus Nyberg",     "points": 10,   "cash": null },
+    { "rank": 24, "name": "Martin Svensson",   "points": null, "cash": null },
+    { "rank": 25, "name": "Felix Björklind",   "points": null, "cash": null }
   ];
 
 // Tävlingar.
@@ -2863,8 +2863,29 @@ const rounds = [
       "course": "Skogsbanan",
       "date": "27 juni",
       "topPrize": 700,
-      "status": "upcoming",
-      "results": []
+      "status": "done",
+      "results": [
+        { "name": "John Falk",           "hcp": 1,  "netto": 67 },
+        { "name": "Petter Johansson",    "hcp": 5,  "netto": 72 },
+        { "name": "Jens Williamsson",    "hcp": 4,  "netto": 73 },
+        { "name": "Joel Ström",          "hcp": 4,  "netto": 75 },
+        { "name": "Joacim Lovén",        "hcp": 7,  "netto": 75 },
+        { "name": "Daniel Lindh",        "hcp": 1,  "netto": 76 },
+        { "name": "Oliver Ekbladh",      "hcp": 15, "netto": 76 },
+        { "name": "David Ärleskog",      "hcp": 15, "netto": 77 },
+        { "name": "Anton Edman",         "hcp": 2,  "netto": 78 },
+        { "name": "Victor Strand",       "hcp": -1, "netto": 79 },
+        { "name": "Henrik Jönsson",      "hcp": 21, "netto": 79 },
+        { "name": "Dennis Berg",         "hcp": 8,  "netto": 80 },
+        { "name": "Sebastian Tiderman",  "hcp": 9,  "netto": 80 },
+        { "name": "Marcus Göth",         "hcp": 21, "netto": 80 },
+        { "name": "Simon Wermelin",      "hcp": 6,  "netto": 84 },
+        { "name": "Martin Jönsson",      "hcp": 18, "netto": 84 },
+        { "name": "Oliver Gustavsson",   "hcp": 4,  "netto": 86 },
+        { "name": "Zimon Karlsson",      "hcp": 12, "netto": 88 },
+        { "name": "Jacob Andersson",     "hcp": 19, "netto": 93 },
+        { "name": "Robin Lindholm",      "hcp": 8,  "netto": null }
+      ]
     },
     {
       "id": 4,
@@ -3148,8 +3169,9 @@ function renderTaevlingResult() {
     const sk = isMajor ? 'netto' : 'score';
     const ptTable = isMajor ? MAJOR_POINTS : DELTA_POINTS;
     const sorted = [...r.results].sort((a, b) => {
-      const sa = a[sk] ?? -Infinity, sb = b[sk] ?? -Infinity;
-      if (sb !== sa) return sb - sa;
+      const sa = a[sk] ?? (isMajor ? Infinity : -Infinity);
+      const sb = b[sk] ?? (isMajor ? Infinity : -Infinity);
+      if (sa !== sb) return isMajor ? sa - sb : sb - sa;
       return (a.hcp ?? 999) - (b.hcp ?? 999);
     });
     const scoreHeader = isMajor ? 'Slag (Netto)' : 'Poäng';
@@ -3242,10 +3264,11 @@ function openResult(id) {
     const sk = isMajor ? 'netto' : 'score';
     const ptTable = isMajor ? MAJOR_POINTS : DELTA_POINTS;
 
-    // Sort by score desc, SHC asc as tiebreaker
+    // Sort by score desc (deltävling) or netto asc (major), SHC asc as tiebreaker
     const sorted = [...r.results].sort((a, b) => {
-      const sa = a[sk] ?? -Infinity, sb = b[sk] ?? -Infinity;
-      if (sb !== sa) return sb - sa;
+      const sa = a[sk] ?? (isMajor ? Infinity : -Infinity);
+      const sb = b[sk] ?? (isMajor ? Infinity : -Infinity);
+      if (sa !== sb) return isMajor ? sa - sb : sb - sa;
       return (a.hcp ?? 999) - (b.hcp ?? 999);
     });
 
@@ -3390,7 +3413,31 @@ const scoreData = {
       { name: "Marcus Göth",        shc: 19, strokes: [6,4,4,10,5,3,4,4,4, 7,6,7,4,7,8,5,5,7] },
     ]
   },
-  3: { course: "Skogsbanan",  scores: [] }, // Major 1
+  3: { // Juni – Major 1 – Skogsbanan
+    course: "Skogsbanan",
+    scores: [
+      { name: "John Falk",          shc: 1,  strokes: [4,4,4,3,4,4,4,3,4, 4,4,4,3,3,4,3,4,5] },
+      { name: "Petter Johansson",   shc: 5,  strokes: [5,5,5,3,4,4,3,5,4, 4,4,6,4,4,4,3,6,4] },
+      { name: "Jens Williamsson",   shc: 4,  strokes: [4,4,4,3,6,3,4,5,4, 4,6,5,4,4,4,3,4,6] },
+      { name: "Joel Ström",         shc: 4,  strokes: [6,3,4,3,6,5,3,4,5, 5,4,5,3,5,4,5,4,5] },
+      { name: "Joacim Lovén",       shc: 7,  strokes: [6,3,5,4,8,4,3,4,3, 7,4,6,3,6,4,3,5,4] },
+      { name: "Daniel Lindh",       shc: 1,  strokes: [4,4,3,3,5,5,4,6,4, 4,6,5,4,5,3,3,4,5] },
+      { name: "Oliver Ekbladh",     shc: 15, strokes: [5,5,5,4,5,8,3,8,5, 5,6,6,4,5,4,4,5,4] },
+      { name: "David Ärleskog",     shc: 15, strokes: [4,4,5,4,7,4,5,5,5, 4,7,9,3,6,5,4,5,6] },
+      { name: "Anton Edman",        shc: 2,  strokes: [4,4,5,4,5,5,4,4,4, 5,5,6,4,4,4,3,5,5] },
+      { name: "Victor Strand",      shc: -1, strokes: [4,5,4,3,3,4,3,5,4, 5,6,6,3,5,4,4,4,6] },
+      { name: "Henrik Jönsson",     shc: 21, strokes: [5,7,4,3,6,6,3,6,6, 4,7,7,5,4,7,5,6,9] },
+      { name: "Dennis Berg",        shc: 8,  strokes: [5,5,3,4,6,7,4,3,4, 7,5,5,3,6,5,3,7,6] },
+      { name: "Sebastian Tiderman", shc: 9,  strokes: [6,6,5,4,5,5,3,4,4, 5,5,9,3,5,5,5,5,5] },
+      { name: "Marcus Göth",        shc: 21, strokes: [6,7,6,3,5,7,4,8,5, 6,6,11,3,5,4,4,5,6] },
+      { name: "Simon Wermelin",     shc: 6,  strokes: [7,8,4,5,6,4,3,3,5, 4,5,5,3,4,5,5,8,6] },
+      { name: "Martin Jönsson",     shc: 18, strokes: [5,4,5,4,8,5,3,5,5, 7,5,8,4,7,10,4,5,8] },
+      { name: "Oliver Gustavsson",  shc: 4,  strokes: [5,6,7,4,5,4,3,7,6, 4,4,6,4,5,6,5,4,5] },
+      { name: "Zimon Karlsson",     shc: 12, strokes: [7,6,8,3,6,6,4,6,4, 5,5,6,3,5,9,4,6,7] },
+      { name: "Jacob Andersson",    shc: 19, strokes: [7,9,5,3,8,6,5,6,6, 10,5,6,3,5,8,6,10,4] },
+      { name: "Robin Lindholm",     shc: 8,  strokes: [4,5,4,4,6,4,4,null,5, 6,4,4,4,4,5,5,7,7] },
+    ]
+  }, // Major 1
   4: { course: "Skogsbanan",  scores: [] },
   5: { course: "Parkbanan",   scores: [] },
   6: { course: "Skogsbanan",  scores: [] },
@@ -3473,10 +3520,11 @@ function openScorecard(roundId, playerName) {
 
   const strokes = playerScores.strokes;
   const shc = playerScores.shc || 0;
-  const totalStrokes = strokes.reduce((a,b) => a + (b||0), 0);
+  const hasNullStrokes = strokes.some(s => s === null);
+  const totalStrokes = hasNullStrokes ? null : strokes.reduce((a,b) => a + b, 0);
   const totalPar = par.reduce((a,b) => a + b, 0);
-  const nettoSlag = totalStrokes - shc;
-  const tillPar = nettoSlag - totalPar; // för major
+  const nettoSlag = totalStrokes != null ? totalStrokes - shc : null;
+  const tillPar = nettoSlag != null ? nettoSlag - totalPar : null; // för major
   const points = hcpIdx ? strokes.map((s,i) => stablefordPoints(s, par[i], hcpIdx[i], shc)) : null;
   const totalPoints = points ? points.reduce((a,b) => a + b, 0) : null;
 
@@ -3511,28 +3559,40 @@ function openScorecard(roundId, playerName) {
 
     // SLAG-rad
     let slagSum = 0;
+    let halfHasNull = false;
     html += `<div class="sc-row"><div class="sc-cell sc-label">SLAG</div>`;
     for (let i = startIdx; i < endIdx; i++) {
       const s = strokes[i];
-      slagSum += s || 0;
+      if (s === null) { halfHasNull = true; } else { slagSum += s; }
       const cls = scStrokeClass(s, par[i]);
       html += `<div class="sc-cell sc-stroke ${cls}"><span class="sc-stroke-inner">${s != null ? s : '–'}</span></div>`;
     }
-    html += `<div class="sc-cell sc-total">${slagSum}</div></div>`;
+    html += `<div class="sc-cell sc-total">${halfHasNull ? '–' : slagSum}</div></div>`;
 
     if (isMajor && hcpIdx) {
       // SCORE-rad: per hål, slag - netto-par
       let scoreSum = 0;
+      let scoreSumValid = true;
       html += `<div class="sc-row"><div class="sc-cell sc-label">SCORE</div>`;
       for (let i = startIdx; i < endIdx; i++) {
-        const personalPar = par[i] + extraStrokesOnHole(shc, hcpIdx[i]);
-        const diff = strokes[i] - personalPar;
-        scoreSum += diff;
-        const color = tpColor(diff);
-        html += `<div class="sc-cell sc-points" style="color:${color};font-weight:700;">${tpText(diff)}</div>`;
+        const s = strokes[i];
+        if (s === null) {
+          scoreSumValid = false;
+          html += `<div class="sc-cell sc-points" style="color:var(--text-muted);">–</div>`;
+        } else {
+          const personalPar = par[i] + extraStrokesOnHole(shc, hcpIdx[i]);
+          const diff = s - personalPar;
+          scoreSum += diff;
+          const color = tpColor(diff);
+          html += `<div class="sc-cell sc-points" style="color:${color};font-weight:700;">${tpText(diff)}</div>`;
+        }
       }
-      const totalColor = tpColor(scoreSum);
-      html += `<div class="sc-cell sc-points sc-total" style="color:${totalColor};">${tpText(scoreSum)}</div></div>`;
+      if (scoreSumValid) {
+        const totalColor = tpColor(scoreSum);
+        html += `<div class="sc-cell sc-points sc-total" style="color:${totalColor};">${tpText(scoreSum)}</div></div>`;
+      } else {
+        html += `<div class="sc-cell sc-points sc-total" style="color:var(--text-muted);">–</div></div>`;
+      }
     } else if (points) {
       // POÄNG-rad
       let ptSum = 0;
@@ -3548,7 +3608,9 @@ function openScorecard(roundId, playerName) {
   // Top-höger värde
   let topRight, topRightLabel;
   if (isMajor) {
-    topRight = `<span style="color:${tpColor(tillPar)};">${tpText(tillPar)}</span>`;
+    topRight = tillPar != null
+      ? `<span style="color:${tpColor(tillPar)};">${tpText(tillPar)}</span>`
+      : `<span style="color:var(--text-muted);">–</span>`;
     topRightLabel = 'Till par';
   } else if (points) {
     topRight = totalPoints;
@@ -3565,7 +3627,7 @@ function openScorecard(roundId, playerName) {
       <div class="sc-summary-bar">
         <div class="sc-summary-item">
           <div class="sc-summary-label">Score</div>
-          <div class="sc-summary-value" style="color:${tpColor(tillPar)};">${tpText(tillPar)}</div>
+          <div class="sc-summary-value" style="color:${tillPar != null ? tpColor(tillPar) : 'var(--text-muted)'};">${tillPar != null ? tpText(tillPar) : '–'}</div>
         </div>
         <div class="sc-summary-item">
           <div class="sc-summary-label">SHC</div>
@@ -3573,11 +3635,11 @@ function openScorecard(roundId, playerName) {
         </div>
         <div class="sc-summary-item">
           <div class="sc-summary-label">Brutto</div>
-          <div class="sc-summary-value">${totalStrokes}</div>
+          <div class="sc-summary-value">${totalStrokes ?? '–'}</div>
         </div>
         <div class="sc-summary-item">
           <div class="sc-summary-label">Netto</div>
-          <div class="sc-summary-value">${nettoSlag}</div>
+          <div class="sc-summary-value">${nettoSlag ?? '–'}</div>
         </div>
       </div>`;
   } else {
@@ -4126,6 +4188,11 @@ const historicalSeasons = [
       { pos: 28, name: "Felix Björklind", points: 70, cash: 0 },
     ]
   },
+  {
+    year: 2026,
+    majors: { "Major 1": { name: "John Falk", course: "Skogsbanan" } },
+    leaderboard: []
+  },
 ];
 
 // Hjälpfunktioner för historik-rendering
@@ -4158,13 +4225,13 @@ function renderHistorySeasons() {
   // 2025 (sista) som default
   const defaultYear = sorted[sorted.length - 1].year;
 
-  // Knappar
-  tabs.innerHTML = sorted.map(s => `
+  // Knappar (bara säsonger med avslutad leaderboard)
+  tabs.innerHTML = sorted.filter(s => s.leaderboard.length > 0).map(s => `
     <button class="history-year-tab${s.year === defaultYear ? ' active' : ''}" onclick="changeHistorySeason(${s.year}, this)">${s.year}</button>
   `).join('');
 
-  // Tabeller
-  wrap.innerHTML = sorted.map(s => {
+  // Tabeller (hoppa över säsonger utan avslutad leaderboard)
+  wrap.innerHTML = sorted.filter(s => s.leaderboard.length > 0).map(s => {
     const rows = s.leaderboard.map(e => `
       <tr class="${rankRowClass(e.pos)}">
         <td><span class="rank-badge">${e.pos}</span></td>
@@ -4276,7 +4343,7 @@ function renderHallOfFame() {
   const champEl = document.getElementById('hof-champions');
   if (champEl) {
     const sorted = [...historicalSeasons].sort((a,b) => a.year - b.year);
-    champEl.innerHTML = sorted.map(s => `
+    champEl.innerHTML = sorted.filter(s => s.leaderboard.length > 0).map(s => `
       <div class="hof-champion-card">
         <div class="hof-champion-year">${s.year}</div>
         <div class="hof-champion-trophy">🏆</div>
@@ -4486,8 +4553,8 @@ function renderMajorPrizes() {
       return;
     }
     const sorted = [...r.results].sort((a, b) => {
-      const sa = a.netto ?? -Infinity, sb = b.netto ?? -Infinity;
-      if (sb !== sa) return sb - sa;
+      const sa = a.netto ?? Infinity, sb = b.netto ?? Infinity;
+      if (sa !== sb) return sa - sb;
       return (a.hcp ?? 999) - (b.hcp ?? 999);
     });
     tbody.innerHTML = PRIZE_LABELS.map((pos, i) => {
@@ -4511,10 +4578,11 @@ function recalcLeaderboard() {
   rounds.filter(r => r.status === 'done' && r.results && r.results.length > 0).forEach(r => {
     const isMajor = r.type === 'major';
     const sk = isMajor ? 'netto' : 'score';
-    // Sort results by score desc, hcp asc
+    // Sort results by score desc (deltävling) or netto asc (major), hcp asc as tiebreaker
     const sorted = [...r.results].sort((a, b) => {
-      const sa = a[sk] ?? -Infinity, sb = b[sk] ?? -Infinity;
-      if (sb !== sa) return sb - sa;
+      const sa = a[sk] ?? (isMajor ? Infinity : -Infinity);
+      const sb = b[sk] ?? (isMajor ? Infinity : -Infinity);
+      if (sa !== sb) return isMajor ? sa - sb : sb - sa;
       return (a.hcp ?? 999) - (b.hcp ?? 999);
     });
     // Group tied entries (same score AND same hcp) and share points equally
