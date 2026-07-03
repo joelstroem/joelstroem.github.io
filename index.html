@@ -2895,8 +2895,10 @@ const rounds = [
       "name": "Deltävling 3",
       "course": "Skogsbanan",
       "topPrize": 500,
-      "status": "upcoming",
-      "results": []
+      "status": "active",
+      "results": [
+        { "name": "Markus Nyberg", "hcp": 4, "score": 30 }
+      ]
     },
     {
       "id": 5,
@@ -3439,7 +3441,12 @@ const scoreData = {
       { name: "Robin Lindholm",     shc: 8,  strokes: [4,5,4,4,6,4,4,null,5, 6,4,4,4,4,5,5,7,7] },
     ]
   }, // Major 1
-  4: { course: "Skogsbanan",  scores: [] },
+  4: { // Juli – Deltävling 3 – Skogsbanan
+    course: "Skogsbanan",
+    scores: [
+      { name: "Markus Nyberg", shc: 4, strokes: [5,6,5,3,6,4,3,5,4, 6,6,6,3,4,3,4,4,5] },
+    ]
+  },
   5: { course: "Parkbanan",   scores: [] },
   6: { course: "Skogsbanan",  scores: [] },
   7: { course: "Parkbanan",   scores: [] }, // Finalmajor
