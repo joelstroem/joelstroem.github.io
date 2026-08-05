@@ -2928,7 +2928,10 @@ const rounds = [
       "course": "Parkbanan",
       "topPrize": 500,
       "status": "active",
-      "results": []
+      "results": [
+        { "rank": 1, "name": "Daniel Lindh",  "hcp": 3, "score": 35 },
+        { "rank": 2, "name": "Victor Strand", "hcp": 1, "score": 25 }
+      ]
     },
     {
       "id": 6,
@@ -3487,7 +3490,10 @@ const scoreData = {
       { name: "Zimon Karlsson",    shc: 11, strokes: [5,4,5,5,8,5,2,5,5, 5,5,4,4,4,4,3,5,6] },
     ]
   },
-  5: { course: "Parkbanan",   scores: [] },
+  5: { course: "Parkbanan", scores: [
+    { name: "Daniel Lindh",  shc: 3, strokes: [4,4,4,5,4,3,3,5,4, 5,5,4,3,4,5,4,6,4] },
+    { name: "Victor Strand", shc: 1, strokes: [6,5,3,7,4,3,3,6,5, 5,6,5,3,5,5,4,6,3] },
+  ] },
   6: { course: "Skogsbanan",  scores: [] },
   7: { course: "Parkbanan",   scores: [] }, // Finalmajor
 };
