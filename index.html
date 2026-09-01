@@ -3218,19 +3218,21 @@ function renderTaevlingResult() {
     });
     const scoreHeader = isMajor ? 'Slag (Netto)' : 'Poäng';
 
+    const sharedPts = calcSharedPoints(sorted, ptTable, sk);
     const rows = sorted.map((row, i) => {
       const pos = i + 1;
       const rankCls = pos === 1 ? 'rank-1' : pos === 2 ? 'rank-2' : pos === 3 ? 'rank-3' : 'rank-other';
       const nameCls = pos <= 3 ? 'player-name top-3' : 'player-name';
       const scoreVal = isMajor ? (row.netto ?? '–') : (row.score ?? '–');
-      const roundPts = row[sk] != null ? (ptTable[i] ?? 0) : '–';
+      const { val, shared } = sharedPts[i];
+      const ptsDisplay = row[sk] != null ? (val) : '–';
       const safeName = row.name.replace(/'/g, "\\'");
       return `<tr class="${rankCls}">
         <td><span class="rank-badge">${pos}</span></td>
         <td class="player-col"><span class="sc-clickable ${nameCls}" onclick="openScorecardInline(${r.id}, '${safeName}')">${row.name}</span></td>
         <td>${row.hcp ?? '–'}</td>
         <td>${scoreVal}</td>
-        <td><span class="points-value">${roundPts}</span></td>
+        <td><span class="points-value">${ptsDisplay}</span></td>
       </tr>`;
     }).join('');
 
@@ -3277,6 +3279,30 @@ const MAJOR_PRIZES  = [1500,750,500];
 const PRIZE_LABELS  = ['1:a','2:a','3:a'];
 const PRIZE_AMOUNTS = ['1 500 kr','750 kr','500 kr'];
 
+// Beräknar poäng per rad med delning: samma score OCH samma hcp → genomsnitt av deras platser
+function calcSharedPoints(sorted, ptTable, sk) {
+  const pts = [];
+  let i = 0;
+  while (i < sorted.length) {
+    const row = sorted[i];
+    if (row[sk] == null) { pts.push({ val: 0, shared: false }); i++; continue; }
+    // Hitta alla på samma plats (samma score OCH samma hcp)
+    let j = i;
+    while (j < sorted.length && sorted[j][sk] === row[sk] && (sorted[j].hcp ?? 999) === (row.hcp ?? 999)) j++;
+    const count = j - i;
+    if (count === 1) {
+      pts.push({ val: ptTable[i] ?? 0, shared: false });
+    } else {
+      let sum = 0;
+      for (let k = i; k < j; k++) sum += (ptTable[k] ?? 0);
+      const avg = Math.round(sum / count);
+      for (let k = i; k < j; k++) pts.push({ val: avg, shared: true });
+    }
+    i = j;
+  }
+  return pts;
+}
+
 function openResult(id) {
   const r = rounds.find(x => x.id === id);
   if (!r) return;
@@ -3314,11 +3340,13 @@ function openResult(id) {
       return (a.hcp ?? 999) - (b.hcp ?? 999);
     });
 
+    const sharedPts = calcSharedPoints(sorted, ptTable, sk);
     document.getElementById('result-tbody').innerHTML = sorted.map((row, i) => {
       const pos = i + 1;
       const rankCls = pos === 1 ? 'r1' : pos === 2 ? 'r2' : pos === 3 ? 'r3' : '';
       const scoreVal = isMajor ? (row.netto ?? '–') : (row.score ?? '–');
-      const roundPts = row[sk] != null ? (ptTable[i] ?? 0) : '–';
+      const { val, shared } = sharedPts[i];
+      const roundPts = row[sk] != null ? (val) : '–';
       return `<tr>
         <td class="result-rank ${rankCls}">${pos}</td>
         <td style="text-align:left;font-weight:500;"><span class="sc-clickable" onclick="openScorecard(window._lastResultId, '${row.name.replace(/'/g, "\\'")}')">${row.name}</span></td>
