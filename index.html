@@ -2754,28 +2754,28 @@
 // ===================== DATA =====================
 // Ledartavla – uppdatera efter varje tävling
 const players = [
-    { "rank": 1,  "name": "Petter Johansson",  "points": 1330, "cash": 750  },
-    { "rank": 2,  "name": "Daniel Lindh",      "points": 1270, "cash": null },
-    { "rank": 3,  "name": "John Falk",         "points": 1240, "cash": 1500 },
-    { "rank": 4,  "name": "Victor Strand",     "points": 1190, "cash": null },
-    { "rank": 5,  "name": "Simon Wermelin",    "points": 1110, "cash": null },
-    { "rank": 6,  "name": "Robin Lindholm",    "points": 1045, "cash": null },
-    { "rank": 7,  "name": "Oliver Ekbladh",    "points": 910,  "cash": null },
-    { "rank": 8,  "name": "Jens Williamsson",  "points": 870,  "cash": 500  },
-    { "rank": 9,  "name": "Dennis Berg",       "points": 795,  "cash": null },
-    { "rank": 10, "name": "Joacim Lovén",      "points": 750,  "cash": null },
-    { "rank": 11, "name": "Oliver Gustavsson", "points": 670,  "cash": null },
-    { "rank": 12, "name": "Zimon Karlsson",    "points": 640,  "cash": null },
-    { "rank": 13, "name": "Martin Jönsson",    "points": 590,  "cash": null },
-    { "rank": 14, "name": "Oscar Wareborn",    "points": 570,  "cash": null },
-    { "rank": 15, "name": "David Ärleskog",    "points": 560,  "cash": null },
-    { "rank": 16, "name": "Joel Ström",        "points": 520,  "cash": null },
+    { "rank": 1,  "name": "Robin Lindholm",    "points": 1745, "cash": 4500 },
+    { "rank": 2,  "name": "Petter Johansson",  "points": 1730, "cash": 2250 },
+    { "rank": 3,  "name": "Daniel Lindh",      "points": 1580, "cash": 750  },
+    { "rank": 4,  "name": "Victor Strand",     "points": 1540, "cash": 500  },
+    { "rank": 5,  "name": "Oliver Ekbladh",    "points": 1460, "cash": 1000 },
+    { "rank": 6,  "name": "John Falk",         "points": 1430, "cash": 1500 },
+    { "rank": 7,  "name": "Simon Wermelin",    "points": 1240, "cash": null },
+    { "rank": 8,  "name": "Jens Williamsson",  "points": 1140, "cash": 500  },
+    { "rank": 9,  "name": "Oscar Wareborn",    "points": 1020, "cash": 500  },
+    { "rank": 10, "name": "Dennis Berg",       "points": 895,  "cash": null },
+    { "rank": 11, "name": "Joacim Lovén",      "points": 750,  "cash": null },
+    { "rank": 12, "name": "Oliver Gustavsson", "points": 750,  "cash": null },
+    { "rank": 13, "name": "Joel Ström",        "points": 750,  "cash": null },
+    { "rank": 14, "name": "Zimon Karlsson",    "points": 700,  "cash": null },
+    { "rank": 15, "name": "Martin Jönsson",    "points": 590,  "cash": null },
+    { "rank": 16, "name": "David Ärleskog",    "points": 560,  "cash": null },
     { "rank": 17, "name": "Markus Nyberg",     "points": 480,  "cash": null },
     { "rank": 18, "name": "Henrik Jönsson",    "points": 460,  "cash": null },
-    { "rank": 19, "name": "Sebastian Tiderman","points": 310,  "cash": null },
-    { "rank": 20, "name": "Anton Edman",       "points": 300,  "cash": null },
-    { "rank": 21, "name": "Jesper Williamsson","points": 250,  "cash": null },
-    { "rank": 22, "name": "Marcus Göth",       "points": 210,  "cash": null },
+    { "rank": 19, "name": "Anton Edman",       "points": 460,  "cash": null },
+    { "rank": 20, "name": "Marcus Göth",       "points": 410,  "cash": null },
+    { "rank": 21, "name": "Sebastian Tiderman","points": 310,  "cash": null },
+    { "rank": 22, "name": "Jesper Williamsson","points": 250,  "cash": null },
     { "rank": 23, "name": "Jacob Andersson",   "points": 20,   "cash": null },
     { "rank": 24, "name": "Martin Svensson",   "points": null, "cash": null },
     { "rank": 25, "name": "Felix Björklind",   "points": null, "cash": null }
@@ -2982,8 +2982,24 @@ const rounds = [
       "course": "Parkbanan",
       "date": "26 september",
       "topPrize": 700,
-      "status": "active",
-      "results": []
+      "status": "done",
+      "results": [
+        { "rank": 1,  "name": "Robin Lindholm",    "hcp": 7,   "netto": 72 },
+        { "rank": 2,  "name": "Oliver Ekbladh",    "hcp": 13,  "netto": 73 },
+        { "rank": 3,  "name": "Oscar Wareborn",    "hcp": -1,  "netto": 75 },
+        { "rank": 4,  "name": "Petter Johansson",  "hcp": 3,   "netto": 75 },
+        { "rank": 5,  "name": "Victor Strand",     "hcp": 0,   "netto": 77 },
+        { "rank": 6,  "name": "Daniel Lindh",      "hcp": -1,  "netto": 78 },
+        { "rank": 7,  "name": "Jens Williamsson",  "hcp": 4,   "netto": 78 },
+        { "rank": 8,  "name": "Joel Ström",        "hcp": 4,   "netto": 79 },
+        { "rank": 9,  "name": "Marcus Göth",       "hcp": 19,  "netto": 79 },
+        { "rank": 10, "name": "John Falk",         "hcp": -1,  "netto": 80 },
+        { "rank": 11, "name": "Anton Edman",       "hcp": 2,   "netto": 81 },
+        { "rank": 12, "name": "Simon Wermelin",    "hcp": 5,   "netto": 81 },
+        { "rank": 13, "name": "Dennis Berg",       "hcp": 7,   "netto": 83 },
+        { "rank": 14, "name": "Oliver Gustavsson", "hcp": 2,   "netto": 86 },
+        { "rank": 15, "name": "Zimon Karlsson",    "hcp": 9,   "netto": 92 }
+      ]
     }
   ];
 
@@ -3583,7 +3599,23 @@ const scoreData = {
     { name: "John Falk",         shc: -1, strokes: [6,5,4,3,5,5,3,6,3, 6,4,7,4,3,9,3,4,6] },
     { name: "Oscar Wareborn",    shc: -1, strokes: [4,4,4,3,6,4,2,5,4, 4,4,5,4,4,4,3,5,4] },
   ] },
-  7: { course: "Parkbanan",   scores: [] }, // Finalmajor
+  7: { course: "Parkbanan", scores: [
+    { name: "Robin Lindholm",    shc: 7,   strokes: [4,4,3,5,4,3,4,5,5, 5,6,4,3,4,5,6,5,4] },
+    { name: "Oliver Ekbladh",    shc: 13,  strokes: [7,5,5,5,5,3,3,5,5, 6,4,5,3,5,6,4,6,4] },
+    { name: "Oscar Wareborn",    shc: -1,  strokes: [6,5,4,5,4,3,3,4,4, 4,4,4,3,5,5,3,4,4] },
+    { name: "Petter Johansson",  shc: 3,   strokes: [4,4,3,4,6,3,3,5,5, 7,5,5,3,4,5,3,5,4] },
+    { name: "Victor Strand",     shc: 0,   strokes: [4,4,3,6,4,3,3,5,4, 5,5,5,3,5,5,5,4,4] },
+    { name: "Daniel Lindh",      shc: -1,  strokes: [4,4,3,6,5,4,3,5,4, 6,4,4,3,4,5,4,5,4] },
+    { name: "Jens Williamsson",  shc: 4,   strokes: [4,4,3,5,4,4,3,5,5, 6,5,6,3,5,4,5,6,5] },
+    { name: "Joel Ström",        shc: 4,   strokes: [5,5,4,5,4,4,3,6,4, 5,5,4,4,5,5,4,5,6] },
+    { name: "Marcus Göth",       shc: 19,  strokes: [6,4,3,7,6,4,5,6,5, 7,5,5,5,6,7,5,6,6] },
+    { name: "John Falk",         shc: -1,  strokes: [5,5,3,8,5,3,3,4,4, 5,4,7,3,4,4,4,4,4] },
+    { name: "Anton Edman",       shc: 2,   strokes: [4,5,4,6,6,3,3,5,4, 6,5,5,3,3,5,4,6,6] },
+    { name: "Simon Wermelin",    shc: 5,   strokes: [5,5,2,4,6,4,5,5,4, 7,4,6,4,4,5,5,6,5] },
+    { name: "Dennis Berg",       shc: 7,   strokes: [6,4,4,5,5,6,3,6,4, 6,5,4,4,4,7,5,7,5] },
+    { name: "Oliver Gustavsson", shc: 2,   strokes: [4,5,4,9,4,4,4,6,6, 5,5,4,4,5,5,4,5,5] },
+    { name: "Zimon Karlsson",    shc: 9,   strokes: [7,5,6,6,6,5,5,5,6, 8,6,5,5,6,6,4,5,5] },
+  ] }, // Finalmajor
 };
 
 // ===================== SCOREKORT =====================
